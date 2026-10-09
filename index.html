@@ -268,6 +268,65 @@
             </form>
         </div>
     </section>
+    <!-- ═══════════════════════════════════════════
+     SECTION 3: BOOKING CONFIRMATION CARD
+     (hidden until form is submitted)
+═══════════════════════════════════════════ -->
+    <section id="confirmation" class="confirmation-section" hidden>
+        <div class="confirmation-container">
+
+            <div class="confirm-icon">✓</div>
+            <h2>Booking Confirmed!</h2>
+            <p class="confirm-subtitle">Your spot at Elmina Castle has been reserved.</p>
+
+            <div class="confirm-card">
+                <div class="confirm-ref">
+                    <span class="ref-label">Booking Reference</span>
+                    <span class="ref-number" id="refNumber">—</span>
+                </div>
+
+                <div class="confirm-details">
+                    <div class="confirm-row">
+                        <span class="confirm-key">Name</span>
+                        <span class="confirm-val" id="confirmName">—</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span class="confirm-key">Email</span>
+                        <span class="confirm-val" id="confirmEmail">—</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span class="confirm-key">Nationality</span>
+                        <span class="confirm-val" id="confirmNationality">—</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span class="confirm-key">Tour Type</span>
+                        <span class="confirm-val" id="confirmTourType">—</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span class="confirm-key">Language</span>
+                        <span class="confirm-val" id="confirmLanguage">—</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span class="confirm-key">Date</span>
+                        <span class="confirm-val" id="confirmDate">—</span>
+                    </div>
+                    <div class="confirm-row">
+                        <span class="confirm-key">Visitors</span>
+                        <span class="confirm-val" id="confirmVisitors">—</span>
+                    </div>
+                    <div class="confirm-row total-row">
+                        <span class="confirm-key">Total Cost</span>
+                        <span class="confirm-val confirm-total" id="confirmTotal">—</span>
+                    </div>
+                </div>
+            </div>
+
+            <button class="new-booking-btn" onclick="resetBookingForm()">
+                Make Another Booking
+            </button>
+
+        </div>
+    </section>
 
     <!-- ═══════════════════════════════════════════
        FOOTER

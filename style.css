@@ -601,3 +601,153 @@ select.invalid {
         text-align: center;
     }
 }
+
+/* ═══════════════════════════════════════════
+   SECTION 3: CONFIRMATION CARD
+═══════════════════════════════════════════ */
+.confirmation-section {
+    padding: 72px 40px;
+    background: var(--cream);
+    text-align: center;
+}
+
+.confirmation-container {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.confirm-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: #fff;
+    font-size: 2.2rem;
+    line-height: 72px;
+    margin: 0 auto 20px;
+}
+
+.confirmation-section h2 {
+    font-size: 2.2rem;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.confirm-subtitle {
+    color: var(--white);
+    margin-bottom: 36px;
+}
+
+/* ── The card ───────────────────────────── */
+.confirm-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow: hidden;
+    text-align: left;
+    margin-bottom: 28px;
+}
+
+.confirm-ref {
+    background: var(--ocean);
+    padding: 20px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.ref-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9bb5cc;
+}
+
+.ref-number {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    color: var(--gold-lite);
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ── Detail rows ────────────────────────── */
+.confirm-details {
+    padding: 8px 0;
+}
+
+.confirm-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 28px;
+    border-bottom: 1px solid var(--card-border);
+    gap: 16px;
+}
+
+.confirm-row:last-child {
+    border-bottom: none;
+}
+
+.confirm-key {
+    font-size: 0.82rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--fg-soft);
+    white-space: nowrap;
+}
+
+.confirm-val {
+    font-size: 0.95rem;
+    color: var(--fg);
+    text-align: right;
+}
+
+.total-row {
+    background: var(--cream-dark);
+}
+
+.confirm-total {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: var(--gold);
+    font-weight: 700;
+}
+
+/* ── Button ─────────────────────────────── */
+.new-booking-btn {
+    background: transparent;
+    border: 2px solid var(--gold);
+    color: var(--gold);
+    padding: 12px 32px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.new-booking-btn:hover {
+    background: var(--gold);
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+    .confirmation-section {
+        padding: 48px 20px;
+    }
+
+    .confirm-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+    }
+
+    .confirm-val {
+        text-align: left;
+    }
+}
