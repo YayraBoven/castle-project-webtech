@@ -155,17 +155,128 @@
             <img src="images/gallery-3.jpeg" alt="Castle View 3" class="gallery-img">
         </div>
     </section>
+    <!-- ═══════════════════════════════════════════
+     SECTION 2: TOUR BOOKING FORM
+═══════════════════════════════════════════ -->
+    <section id="booking" class="booking-section">
+        <div class="booking-container">
+
+            <div class="booking-header">
+                <h2>Book Your Tour</h2>
+                <p>Reserve your place at one of the world's most significant historical sites.
+                    Confirmation is instant your reference number is generated immediately!</p>
+            </div>
+
+            <form id="bookingForm" class="booking-form" novalidate>
+
+                <!-- ROW 1: Full Name + Email -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="visitorName">Full Name <span class="required">*</span></label>
+                        <input type="text" id="visitorName" placeholder="e.g. Ewur Mension" autocomplete="name">
+                        <span class="error-msg" id="nameError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="visitorEmail">Email Address <span class="required">*</span></label>
+                        <input type="email" id="visitorEmail" placeholder="e.g. ewur@gmail.com" autocomplete="email">
+                        <span class="error-msg" id="emailError"></span>
+                    </div>
+                </div>
+
+                <!-- ROW 2: Nationality + Number of Visitors -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="nationality">Nationality <span class="required">*</span></label>
+                        <select id="nationality">
+                            <option value="">— Select your country —</option>
+                            <option value="Ghana">Ghana</option>
+                            <option value="Nigeria">Nigeria</option>
+                            <option value="USA">United States</option>
+                            <option value="UK">United Kingdom</option>
+                            <option value="Germany">Germany</option>
+                            <option value="France">France</option>
+                            <option value="Netherlands">Netherlands</option>
+                            <option value="Jamaica">Jamaica</option>
+                            <option value="Brazil">Brazil</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <span class="error-msg" id="nationalityError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="visitors">Number of Visitors <span class="required">*</span></label>
+                        <input type="number" id="visitors" placeholder="e.g. 2" min="1" max="50">
+                        <span class="error-msg" id="visitorsError"></span>
+                    </div>
+                </div>
+
+                <!-- ROW 3: Tour Date + Preferred Language -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tourDate">Tour Date <span class="required">*</span></label>
+                        <input type="date" id="tourDate">
+                        <span class="error-msg" id="dateError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Preferred Language</label>
+                        <select id="language">
+                            <option value="English">English</option>
+                            <option value="French">French</option>
+                            <option value="Dutch">Dutch</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="Fante">Fante</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ROW 4: Tour Type + Currency -->
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="tourType">Tour Type <span class="required">*</span></label>
+                        <select id="tourType" onchange="updateCostPreview()">
+                            <option value="">— Choose a tour —</option>
+                            <option value="General">General Tour — Standard access</option>
+                            <option value="VIP">VIP Tour — Private guide + restricted areas</option>
+                            <option value="Educational">Educational Tour — Groups & schools</option>
+                        </select>
+                        <span class="error-msg" id="tourTypeError"></span>
+                    </div>
+                    <div class="form-group">
+                        <label for="currency">Display Currency</label>
+                        <select id="currency" onchange="updateCostPreview()">
+                            <option value="GHS">GHS — Ghana Cedi</option>
+                            <option value="USD">USD — US Dollar</option>
+                            <option value="EUR">EUR — Euro</option>
+                            <option value="GBP">GBP — British Pound</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- COST PREVIEW BOX -->
+                <div class="cost-preview" id="costPreview" hidden>
+                    <div class="cost-preview-inner">
+                        <span class="cost-label">Estimated Cost</span>
+                        <span class="cost-amount" id="costAmount">—</span>
+                    </div>
+                    <p class="cost-note">Final amount per the number of person(s) confirmed on booking</p>
+                </div>
+
+                <!-- SUBMIT BUTTON -->
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    Confirm Booking →
+                </button>
+
+            </form>
+        </div>
+    </section>
 
     <!-- ═══════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════ -->
     <footer>
-        <p>Elmina Castle Visitor Experience &nbsp;|&nbsp; Elmina, Central Region, Ghana</p>
-        <p>A project celebrating Ghana's living heritage</p>
-    </footer>
+        <p>Elmina Castle Visitor Experience &nbsp;|&nbsp; Elmina, Central Region, Ghana</p </footer>
 
-    <!-- Your JavaScript file (loaded LAST so HTML exists before JS runs) -->
-    <script src="script.js"></script>
+        <!-- Your JavaScript file (loaded LAST so HTML exists before JS runs) -->
+        <script src="script.js"></script>
 
 </body>
 

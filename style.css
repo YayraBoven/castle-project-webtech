@@ -304,15 +304,17 @@ nav {
 }
 
 .facts-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-  justify-content: center;   /* ← centers all rows including the last one */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    /* ← centers all rows including the last one */
 }
 
 .fact-card {
-  flex: 0 1 calc(25% - 20px);   /* max 4 across */
-  min-width: 220px;
+    flex: 0 1 calc(25% - 20px);
+    /* max 4 across */
+    min-width: 220px;
 }
 
 .fact-card {
@@ -411,5 +413,191 @@ footer {
 
     .stat {
         padding: 18px 20px;
+    }
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 2: TOUR BOOKING FORM
+═══════════════════════════════════════════ */
+.booking-section {
+    padding: 72px 40px;
+    background: var(--cream-dark);
+}
+
+.booking-container {
+    max-width: 820px;
+    margin: 0 auto;
+}
+
+.booking-header {
+    text-align: center;
+    margin-bottom: 48px;
+}
+
+.booking-header h2 {
+    font-size: 2.2rem;
+    color: var(--white);
+    margin-bottom: 12px;
+}
+
+.booking-header p {
+    color: var(--white);
+    max-width: 520px;
+    margin: 0 auto;
+    font-size: 0.95rem;
+}
+
+/* ── The form ───────────────────────────── */
+.booking-form {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* ── Each 2-column row ──────────────────── */
+.form-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* ── Individual field group ─────────────── */
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1 1 280px;
+    min-width: 0;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+}
+
+.required {
+    color: var(--gold);
+}
+
+/* ── Inputs and selects ─────────────────── */
+input[type="text"],
+input[type="email"],
+input[type="number"],
+input[type="date"],
+select {
+    padding: 12px 14px;
+    border: 1.5px solid var(--card-border);
+    border-radius: 6px;
+    background: var(--cream);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    width: 100%;
+}
+
+input:focus,
+select:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(184, 137, 42, 0.15);
+}
+
+/* invalid state (added by JS) */
+input.invalid,
+select.invalid {
+    border-color: #c0392b;
+    box-shadow: 0 0 0 3px rgba(192, 57, 43, 0.12);
+}
+
+.error-msg {
+    font-size: 0.78rem;
+    color: #c0392b;
+    min-height: 16px;
+    display: block;
+}
+
+/* ── Cost preview box ───────────────────── */
+.cost-preview {
+    background: var(--ocean);
+    border-radius: 8px;
+    padding: 20px 24px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+}
+
+.cost-preview-inner {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.cost-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #9bb5cc;
+}
+
+.cost-amount {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold-lite);
+    font-variant-numeric: tabular-nums;
+}
+
+.cost-note {
+    font-size: 0.78rem;
+    color: #9bb5cc;
+}
+
+/* ── Submit button ──────────────────────── */
+.submit-btn {
+    background: var(--gold);
+    color: #fff;
+    border: none;
+    padding: 16px 32px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    align-self: flex-end;
+}
+
+.submit-btn:hover {
+    background: var(--gold-lite);
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* ── Phone layout ───────────────────────── */
+@media (max-width: 600px) {
+    .booking-section {
+        padding: 48px 20px;
+    }
+
+    .booking-form {
+        padding: 24px 20px;
+    }
+
+    .submit-btn {
+        align-self: stretch;
+        text-align: center;
     }
 }
