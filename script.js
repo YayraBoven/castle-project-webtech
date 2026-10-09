@@ -423,26 +423,52 @@ function updateLogStats() {
 // Filters allBookings[] and re-renders with matching results.
 // Uses forEach + indexOf — Lesson 10 Part 7.
 
+var activeLogType = "All"
+
+function setLogChip(btn) {
+    document.querySelectorAll('.chip[data-value]').forEach(function (c) {
+        c.classList.remove("active")
+    })
+    btn.classList.add("active")
+    activeLogType = btn.getAttribute("data-value")
+    filterLog()
+}
+
 function filterLog() {
     var query = document.getElementById("logSearch").value.toLowerCase().trim()
+    var fromDate = document.getElementById("logFrom").value
+    var toDate = document.getElementById("logTo").value
+    var clearBtn = document.getElementById("logClear")
 
-    if (query === "") {
-        renderLog(allBookings)   // show everything if search is empty
-        return
-    }
+    clearBtn.hidden = (query === "")
 
     var filtered = []
 
     allBookings.forEach(function (b) {
-        var searchable = (b.name + b.nationality + b.tourType).toLowerCase()
+        var searchable = (b.name + " " + b.nationality).toLowerCase()
+        var textMatch = (query === "") || searchable.includes(query)
+        var typeMatch = (activeLogType === "All") || (b.tourType === activeLogType)
+        var fromMatch = (fromDate === "") || (b.date >= fromDate)
+        var toMatch = (toDate === "") || (b.date <= toDate)
 
-        // indexOf returns -1 if not found, anything else if found
-        if (searchable.indexOf(query) !== -1) {
+        if (textMatch && typeMatch && fromMatch && toMatch) {
             filtered.push(b)
         }
     })
 
     renderLog(filtered)
+}
+
+function clearLogSearch() {
+    document.getElementById("logSearch").value = ""
+    document.getElementById("logFrom").value = ""
+    document.getElementById("logTo").value = ""
+    document.getElementById("logClear").hidden = true
+    activeLogType = "All"
+    document.querySelectorAll('.chip[data-value]').forEach(function (c) {
+        c.classList.toggle("active", c.getAttribute("data-value") === "All")
+    })
+    renderLog(allBookings)
 }
 
 // ── Hook into the booking submit ─────────────────────────────

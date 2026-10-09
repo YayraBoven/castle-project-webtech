@@ -1544,3 +1544,117 @@ textarea.invalid {
         padding: 24px 18px;
     }
 }
+
+.search-input-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--cream);
+  border: 1.5px solid var(--card-border);
+  border-radius: 8px;
+  padding: 0 14px;
+  transition: border-color 0.2s;
+}
+
+.search-input-wrap:focus-within {
+  border-color: var(--gold);
+  box-shadow: 0 0 0 3px rgba(184,137,42,0.12);
+}
+
+.search-icon { font-size: 1rem; flex-shrink: 0; }
+
+.search-input-wrap input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  padding: 13px 0;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.95rem;
+  color: var(--fg);
+  outline: none;
+}
+
+.search-clear {
+  background: none;
+  border: none;
+  color: var(--fg-soft);
+  cursor: pointer;
+  font-size: 0.9rem;
+  padding: 4px;
+  line-height: 1;
+}
+
+.search-chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.chip-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+  margin-right: 4px;
+}
+
+.chip {
+  padding: 6px 16px;
+  border: 1.5px solid var(--card-border);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--fg-soft);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.18s;
+}
+
+.chip:hover  { border-color: var(--gold); color: var(--gold); }
+.chip.active { background: var(--gold); border-color: var(--gold); color: #fff; }
+
+.search-dates {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.date-field {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.date-field label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--fg-soft);
+  white-space: nowrap;
+}
+
+.date-field input {
+  padding: 9px 12px;
+  border: 1.5px solid var(--card-border);
+  border-radius: 6px;
+  background: var(--cream);
+  color: var(--fg);
+  font-family: 'Inter', sans-serif;
+  font-size: 0.88rem;
+}
+
+.date-field input:focus {
+  outline: none;
+  border-color: var(--gold);
+}
+
+.log-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}

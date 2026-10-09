@@ -363,9 +363,34 @@
             </div>
 
             <!-- SEARCH BAR (Section 9 will power this fully) -->
-            <div class="log-search-bar">
-                <input type="text" id="logSearch" placeholder="Search by name, nationality or tour type…"
-                    oninput="filterLog()">
+            <div class="log-controls">
+
+                <div class="search-input-wrap">
+                    <span class="search-icon"></span>
+                    <input type="text" id="logSearch" placeholder="Search by name or nationality…"
+                        oninput="filterLog()">
+                    <button class="search-clear" id="logClear" onclick="clearLogSearch()" hidden>✕</button>
+                </div>
+
+                <div class="search-chips">
+                    <span class="chip-label">Tour:</span>
+                    <button class="chip active" data-value="All" onclick="setLogChip(this)">All</button>
+                    <button class="chip" data-value="General" onclick="setLogChip(this)">General</button>
+                    <button class="chip" data-value="VIP" onclick="setLogChip(this)">VIP</button>
+                    <button class="chip" data-value="Educational" onclick="setLogChip(this)">Educational</button>
+                </div>
+
+                <div class="search-dates">
+                    <div class="date-field">
+                        <label for="logFrom">From</label>
+                        <input type="date" id="logFrom" onchange="filterLog()">
+                    </div>
+                    <div class="date-field">
+                        <label for="logTo">To</label>
+                        <input type="date" id="logTo" onchange="filterLog()">
+                    </div>
+                </div>
+
             </div>
 
             <!-- TABLE -->
