@@ -751,3 +751,377 @@ select.invalid {
         text-align: left;
     }
 }
+
+/* ═══════════════════════════════════════════
+   SECTION 4: VISITOR LOG
+═══════════════════════════════════════════ */
+.log-section {
+    padding: 72px 40px;
+    background: var(--cream-dark);
+}
+
+.log-container {
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+.log-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.log-header h2 {
+    font-size: 2.2rem;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.log-header p {
+    color: var(--fg-soft);
+    font-size: 0.95rem;
+}
+
+/* ── Stat tiles ─────────────────────────── */
+.log-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.log-stat-tile {
+    background: var(--ocean);
+    border-radius: 10px;
+    padding: 20px 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+    flex: 1 1 140px;
+    max-width: 180px;
+}
+
+.log-stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold-lite);
+    font-variant-numeric: tabular-nums;
+}
+
+.log-stat-label {
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9bb5cc;
+    text-align: center;
+}
+
+/* ── Search bar ─────────────────────────── */
+.log-search-bar {
+    margin-bottom: 20px;
+}
+
+.log-search-bar input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid var(--card-border);
+    border-radius: 8px;
+    background: var(--card-bg);
+    color: var(--fg);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.2s;
+}
+
+.log-search-bar input:focus {
+    outline: none;
+    border-color: var(--gold);
+}
+
+/* ── Table ──────────────────────────────── */
+.log-table-wrapper {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    overflow-x: auto;
+    /* scroll on small screens */
+}
+
+.log-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    min-width: 700px;
+    /* forces scroll before squishing */
+}
+
+.log-table thead {
+    background: var(--ocean);
+    color: #9bb5cc;
+}
+
+.log-table th {
+    padding: 14px 16px;
+    text-align: left;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.log-table td {
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--card-border);
+    color: var(--fg);
+    vertical-align: middle;
+}
+
+.log-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.log-table tbody tr:hover {
+    background: var(--cream-dark);
+}
+
+/* Tour type badge */
+.tour-badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+}
+
+.badge-General {
+    background: #1a4060;
+    color: #9bb5cc;
+}
+
+.badge-VIP {
+    background: #3d2b0a;
+    color: var(--gold-lite);
+}
+
+.badge-Educational {
+    background: #1a3020;
+    color: #7ec88a;
+}
+
+/* Reference number style */
+.ref-cell {
+    font-family: 'Playfair Display', serif;
+    color: var(--gold);
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+/* Empty state */
+.log-empty {
+    padding: 48px 24px;
+    text-align: center;
+    color: var(--fg-soft);
+    font-size: 0.95rem;
+}
+
+@media (max-width: 600px) {
+    .log-section {
+        padding: 48px 20px;
+    }
+
+    .log-stat-tile {
+        max-width: 100%;
+        flex: 1 1 120px;
+    }
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 5: TOUR GUIDE CHECKER
+═══════════════════════════════════════════ */
+.guides-section {
+    padding: 72px 40px;
+    background: var(--cream);
+}
+
+.guides-container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.guides-header {
+    text-align: center;
+    margin-bottom: 36px;
+}
+
+.guides-header h2 {
+    font-size: 2.2rem;
+    color: var(--white);
+    margin-bottom: 8px;
+}
+
+.guides-header p {
+    color: var(--white);
+    font-size: 0.95rem;
+}
+
+/* ── Filter buttons ─────────────────────── */
+.guide-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 40px;
+}
+
+.filter-btn {
+    padding: 9px 22px;
+    border: 2px solid var(--card-border);
+    border-radius: 24px;
+    background: var(--card-bg);
+    color: var(--white);
+    font-family: 'Inter', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.filter-btn:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+}
+
+.filter-btn.active {
+    background: var(--gold);
+    border-color: var(--gold);
+    color: #fff;
+}
+
+/* ── Guide cards grid ───────────────────── */
+.guides-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 20px;
+}
+
+.guide-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.guide-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Available vs unavailable */
+.guide-card.unavailable {
+    opacity: 0.5;
+    filter: grayscale(40%);
+}
+
+.guide-top {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.guide-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--ocean);
+    color: var(--gold-lite);
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.guide-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    color: var(--white);
+}
+
+.guide-role {
+    font-size: 0.78rem;
+    color: var(--fg-soft);
+    margin-top: 2px;
+}
+
+/* Availability badge */
+.guide-status {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    align-self: flex-start;
+}
+
+.status-available {
+    background: #1a3020;
+    color: #7ec88a;
+}
+
+.status-unavailable {
+    background: #2a1a1a;
+    color: #c08080;
+}
+
+/* Language tags */
+.guide-languages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.lang-tag {
+    padding: 3px 10px;
+    border-radius: 12px;
+    background: var(--cream-dark);
+    border: 1px solid var(--card-border);
+    font-size: 0.75rem;
+    color: var(--fg-soft);
+    font-weight: 600;
+}
+
+.lang-tag.highlighted {
+    background: var(--ocean);
+    color: #9bb5cc;
+    border-color: var(--ocean-mid);
+}
+
+/* Guide speciality */
+.guide-speciality {
+    font-size: 0.82rem;
+    color: var(--fg-soft);
+    font-style: italic;
+    border-top: 1px solid var(--card-border);
+    padding-top: 12px;
+}
+
+.guides-empty {
+    text-align: center;
+    padding: 48px;
+    color: var(--fg-soft);
+}
+
+@media (max-width: 600px) {
+    .guides-section {
+        padding: 48px 20px;
+    }
+}

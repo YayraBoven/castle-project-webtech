@@ -327,7 +327,109 @@
 
         </div>
     </section>
+    <!-- ═══════════════════════════════════════════
+     SECTION 4: VISITOR LOG / DASHBOARD
+═══════════════════════════════════════════ -->
+    <section id="visitor-log" class="log-section">
+        <div class="log-container">
 
+            <div class="log-header">
+                <h2>Visitor Log</h2>
+                <p>Every confirmed booking appears here in real time.</p>
+            </div>
+
+            <!-- STAT TILES -->
+            <div class="log-stats">
+                <div class="log-stat-tile">
+                    <span class="log-stat-num" id="statTotal">0</span>
+                    <span class="log-stat-label">Total Bookings</span>
+                </div>
+                <div class="log-stat-tile">
+                    <span class="log-stat-num" id="statVisitors">0</span>
+                    <span class="log-stat-label">Total Visitors</span>
+                </div>
+                <div class="log-stat-tile">
+                    <span class="log-stat-num" id="statGeneral">0</span>
+                    <span class="log-stat-label">General Tours</span>
+                </div>
+                <div class="log-stat-tile">
+                    <span class="log-stat-num" id="statVIP">0</span>
+                    <span class="log-stat-label">VIP Tours</span>
+                </div>
+                <div class="log-stat-tile">
+                    <span class="log-stat-num" id="statEducational">0</span>
+                    <span class="log-stat-label">Educational Tours</span>
+                </div>
+            </div>
+
+            <!-- SEARCH BAR (Section 9 will power this fully) -->
+            <div class="log-search-bar">
+                <input type="text" id="logSearch" placeholder="Search by name, nationality or tour type…"
+                    oninput="filterLog()">
+            </div>
+
+            <!-- TABLE -->
+            <div class="log-table-wrapper">
+                <table class="log-table">
+                    <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Name</th>
+                            <th>Nationality</th>
+                            <th>Tour Type</th>
+                            <th>Date</th>
+                            <th>Visitors</th>
+                            <th>Cost</th>
+                            <th>Language</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logTableBody">
+                        <!-- rows inserted by JS -->
+                    </tbody>
+                </table>
+
+                <!-- Empty state — shown when no bookings yet -->
+                <div class="log-empty" id="logEmpty">
+                    <p>No bookings yet. Submit the form above to see entries here.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════
+     SECTION 5: TOUR GUIDE AVAILABILITY CHECKER
+═══════════════════════════════════════════ -->
+    <section id="guides" class="guides-section">
+        <div class="guides-container">
+
+            <div class="guides-header">
+                <h2>Tour Guide Availability</h2>
+                <p>Filter our guides by language to find who is available for your tour.</p>
+            </div>
+
+            <!-- LANGUAGE FILTER BUTTONS -->
+            <div class="guide-filters">
+                <button class="filter-btn active" onclick="filterGuides('All')">All Guides</button>
+                <button class="filter-btn" onclick="filterGuides('English')">English</button>
+                <button class="filter-btn" onclick="filterGuides('French')">French</button>
+                <button class="filter-btn" onclick="filterGuides('Dutch')">Dutch</button>
+                <button class="filter-btn" onclick="filterGuides('Fante')">Fante</button>
+                <button class="filter-btn" onclick="filterGuides('Spanish')">Spanish</button>
+            </div>
+
+            <!-- GUIDE CARDS GRID -->
+            <div class="guides-grid" id="guidesGrid">
+                <!-- Cards inserted by JS -->
+            </div>
+
+            <!-- Empty state -->
+            <div class="guides-empty" id="guidesEmpty" hidden>
+                <p>No guides available for that language right now. Try another language.</p>
+            </div>
+
+        </div>
+    </section>
     <!-- ═══════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════ -->

@@ -316,6 +316,7 @@ document.getElementById("bookingForm").addEventListener("submit", function (e) {
 
     // ── Save to the global bookings array (used in Section 5) ─
     allBookings.push(booking)
+    renderLog()
     console.log("Booking saved:", booking.getSummary())
 })
 
@@ -332,3 +333,278 @@ function resetBookingForm() {
     // Scroll back up to the booking form
     document.getElementById("booking").scrollIntoView({ behavior: "smooth" })
 }
+
+// ═══════════════════════════════════════════
+// SECTION 4: VISITOR LOG
+// Covers Lesson 10 Parts 6 & 7 — arrays + forEach
+// ═══════════════════════════════════════════
+
+// ── renderLog() ─────────────────────────────────────────────
+// Reads the allBookings[] array and rebuilds the table.
+// Called every time a new booking is added.
+//
+// Steps:
+//   1. Get the <tbody> element
+//   2. Clear whatever rows are already there
+//   3. Use forEach to loop through allBookings[]
+//   4. For each booking, build a <tr> string and insert it
+//   5. Update the stat tiles
+
+function renderLog(bookingsToShow) {
+    var tbody = document.getElementById("logTableBody")
+    var empty = document.getElementById("logEmpty")
+
+    // Default: show all bookings
+    if (bookingsToShow === undefined) {
+        bookingsToShow = allBookings
+    }
+
+    // Clear existing rows
+    tbody.innerHTML = ""
+
+    if (bookingsToShow.length === 0) {
+        empty.hidden = false
+        return
+    }
+
+    empty.hidden = true
+
+    // forEach — Lesson 10 Part 7
+    // Goes through each booking object and creates a table row
+    bookingsToShow.forEach(function (b) {
+        var row = document.createElement("tr")
+
+        row.innerHTML =
+            '<td class="ref-cell">' + b.reference + "</td>" +
+            "<td>" + b.name + "</td>" +
+            "<td>" + b.nationality + "</td>" +
+            '<td><span class="tour-badge badge-' + b.tourType + '">' +
+            b.tourType + "</span></td>" +
+            "<td>" + b.date + "</td>" +
+            "<td>" + b.visitors + "</td>" +
+            "<td><strong>" + b.cost + "</strong></td>" +
+            "<td>" + b.language + "</td>"
+
+        tbody.appendChild(row)
+    })
+
+    // Update stat tiles
+    updateLogStats()
+}
+
+// ── updateLogStats() ─────────────────────────────────────────
+// Counts totals from allBookings[] and updates the 5 tiles.
+// Uses forEach to accumulate counts — Lesson 10 Part 7.
+
+function updateLogStats() {
+    var totalBookings = allBookings.length
+    var totalVisitors = 0
+    var countGeneral = 0
+    var countVIP = 0
+    var countEducational = 0
+
+    allBookings.forEach(function (b) {
+        totalVisitors += b.visitors   // add each booking's visitors to running total
+
+        if (b.tourType === "General") countGeneral++
+        if (b.tourType === "VIP") countVIP++
+        if (b.tourType === "Educational") countEducational++
+    })
+
+    document.getElementById("statTotal").textContent = totalBookings
+    document.getElementById("statVisitors").textContent = totalVisitors
+    document.getElementById("statGeneral").textContent = countGeneral
+    document.getElementById("statVIP").textContent = countVIP
+    document.getElementById("statEducational").textContent = countEducational
+}
+
+// ── filterLog() ──────────────────────────────────────────────
+// Runs on every keystroke in the search box.
+// Filters allBookings[] and re-renders with matching results.
+// Uses forEach + indexOf — Lesson 10 Part 7.
+
+function filterLog() {
+    var query = document.getElementById("logSearch").value.toLowerCase().trim()
+
+    if (query === "") {
+        renderLog(allBookings)   // show everything if search is empty
+        return
+    }
+
+    var filtered = []
+
+    allBookings.forEach(function (b) {
+        var searchable = (b.name + b.nationality + b.tourType).toLowerCase()
+
+        // indexOf returns -1 if not found, anything else if found
+        if (searchable.indexOf(query) !== -1) {
+            filtered.push(b)
+        }
+    })
+
+    renderLog(filtered)
+}
+
+// ── Hook into the booking submit ─────────────────────────────
+// After a booking is pushed to allBookings[], re-render the log.
+// We do this by overriding the push call in the submit handler.
+// Find this line in the submit handler above:
+//   allBookings.push(booking)
+// And ADD this line directly after it:
+//   renderLog()
+
+// ═══════════════════════════════════════════
+// SECTION 5: TOUR GUIDE AVAILABILITY CHECKER
+// Covers: arrays of objects, forEach, indexOf
+// ═══════════════════════════════════════════
+
+// ── The guides array ─────────────────────────────────────────
+// An array where each item is an object (Lesson 10 Part 6).
+// Each guide object has: name, initials, role, languages,
+// available (boolean), and speciality.
+
+var guides = [
+    {
+        name: "Kwesi Mensah",
+        initials: "KM",
+        role: "Senior Guide",
+        languages: ["English", "Dutch", "Fante"],
+        available: true,
+        speciality: "Expert in the Dutch colonial period and dungeon history."
+    },
+    {
+        name: "Abena Agyeman",
+        initials: "AA",
+        role: "Heritage Guide",
+        languages: ["English", "French"],
+        available: true,
+        speciality: "Specialises in diaspora connections and the slave trade routes."
+    },
+    {
+        name: "Kofi Asante",
+        initials: "KA",
+        role: "Educational Guide",
+        languages: ["French", "Fante"],
+        available: false,
+        speciality: "Leads school and university group tours."
+    },
+    {
+        name: "Ama Brew",
+        initials: "AB",
+        role: "Cultural Guide",
+        languages: ["English", "Spanish", "Fante"],
+        available: true,
+        speciality: "Covers Elmina town history and the fishing community."
+    },
+    {
+        name: "Yaw Donkor",
+        initials: "YD",
+        role: "VIP Guide",
+        languages: ["English", "Dutch"],
+        available: true,
+        speciality: "Private tours of restricted areas and the governor's quarters."
+    },
+    {
+        name: "Efua Sekyi",
+        initials: "ES",
+        role: "Heritage Guide",
+        languages: ["French", "Spanish", "English"],
+        available: false,
+        speciality: "Expert in Portuguese-era architecture and early trade records."
+    }
+]
+
+// ── renderGuides(list, highlightLang) ────────────────────────
+// Builds a card for each guide in the list array.
+// highlightLang marks which language tag is currently filtered.
+
+function renderGuides(list, highlightLang) {
+    var grid = document.getElementById("guidesGrid")
+    var empty = document.getElementById("guidesEmpty")
+
+    grid.innerHTML = ""   // clear previous cards
+
+    if (list.length === 0) {
+        empty.hidden = false
+        return
+    }
+
+    empty.hidden = true
+
+    // forEach — loop through each guide object
+    list.forEach(function (guide) {
+
+        // Build the language tags HTML
+        // indexOf — check if the highlighted language is in this guide's array
+        var langTagsHTML = ""
+        guide.languages.forEach(function (lang) {
+            var isHighlighted = (lang === highlightLang)
+            langTagsHTML += '<span class="lang-tag' +
+                (isHighlighted ? " highlighted" : "") + '">' + lang + "</span>"
+        })
+
+        // Available or not — pick the right CSS class and label
+        var statusClass = guide.available ? "status-available" : "status-unavailable"
+        var statusText = guide.available ? "✓ Available" : "✗ Unavailable"
+        var cardClass = guide.available ? "" : " unavailable"
+
+        // Build the full card HTML string
+        var card = document.createElement("div")
+        card.className = "guide-card" + cardClass
+
+        card.innerHTML =
+            '<div class="guide-top">' +
+            '<div class="guide-avatar">' + guide.initials + "</div>" +
+            '<div>' +
+            '<div class="guide-name">' + guide.name + "</div>" +
+            '<div class="guide-role">' + guide.role + "</div>" +
+            "</div>" +
+            "</div>" +
+            '<span class="guide-status ' + statusClass + '">' + statusText + "</span>" +
+            '<div class="guide-languages">' + langTagsHTML + "</div>" +
+            '<p class="guide-speciality">' + guide.speciality + "</p>"
+
+        grid.appendChild(card)
+    })
+}
+
+// ── filterGuides(lang) ───────────────────────────────────────
+// Called by each filter button.
+// If lang is "All" — show every guide.
+// Otherwise — use forEach to collect only guides who speak lang.
+//   indexOf on the guide's languages array:
+//     returns -1  → language NOT found → skip
+//     returns ≥ 0 → language found     → include
+
+function filterGuides(lang) {
+
+    // Update active button styling
+    var buttons = document.querySelectorAll(".filter-btn")
+    buttons.forEach(function (btn) {
+        if (btn.textContent === lang || (lang === "All" && btn.textContent === "All Guides")) {
+            btn.classList.add("active")
+        } else {
+            btn.classList.remove("active")
+        }
+    })
+
+    if (lang === "All") {
+        renderGuides(guides, null)
+        return
+    }
+
+    // Build filtered list using forEach + indexOf
+    var filtered = []
+
+    guides.forEach(function (guide) {
+        // indexOf checks if lang exists inside guide.languages array
+        if (guide.languages.indexOf(lang) !== -1) {
+            filtered.push(guide)
+        }
+    })
+
+    renderGuides(filtered, lang)   // pass lang so matching tag gets highlighted
+}
+
+// Render all guides on page load
+renderGuides(guides, null)
