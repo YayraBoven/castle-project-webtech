@@ -430,6 +430,45 @@
 
         </div>
     </section>
+
+    <!-- ═══════════════════════════════════════════
+     SECTION 6: CASTLE HISTORY TIMELINE
+═══════════════════════════════════════════ -->
+    <section id="history" class="timeline-section">
+        <div class="timeline-container">
+
+            <div class="timeline-header">
+                <h2>Castle History Timeline</h2>
+                <p>Five centuries of history — one event at a time.</p>
+            </div>
+
+            <!-- PROGRESS BAR -->
+            <div class="timeline-progress-track">
+                <div class="timeline-progress-fill" id="timelineProgress"></div>
+            </div>
+            <div class="timeline-progress-label" id="timelineLabel">Event 1 of 10</div>
+
+            <!-- EVENT CARD -->
+            <div class="timeline-card" id="timelineCard">
+                <div class="tl-era" id="tlEra">—</div>
+                <div class="tl-year" id="tlYear">—</div>
+                <h3 class="tl-event" id="tlEvent">—</h3>
+                <p class="tl-detail" id="tlDetail">—</p>
+                <div class="tl-power" id="tlPower">—</div>
+            </div>
+
+            <!-- NAV BUTTONS -->
+            <div class="timeline-nav">
+                <button class="tl-btn" id="tlPrev" onclick="timelineStep(-1)">← Previous</button>
+
+                <!-- DOT INDICATORS -->
+                <div class="tl-dots" id="tlDots"></div>
+
+                <button class="tl-btn" id="tlNext" onclick="timelineStep(1)">Next →</button>
+            </div>
+
+        </div>
+    </section>
     <!-- ═══════════════════════════════════════════
        FOOTER
   ═══════════════════════════════════════════ -->

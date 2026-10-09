@@ -1125,3 +1125,190 @@ select.invalid {
         padding: 48px 20px;
     }
 }
+
+/* ═══════════════════════════════════════════
+   SECTION 6: HISTORY TIMELINE
+═══════════════════════════════════════════ */
+.timeline-section {
+    padding: 72px 40px;
+    background: var(--ocean);
+}
+
+.timeline-container {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.timeline-header {
+    margin-bottom: 40px;
+}
+
+.timeline-header h2 {
+    font-size: 2.2rem;
+    color: var(--gold-lite);
+    margin-bottom: 8px;
+}
+
+.timeline-header p {
+    color: #9bb5cc;
+    font-size: 0.95rem;
+}
+
+/* ── Progress bar ───────────────────────── */
+.timeline-progress-track {
+    height: 4px;
+    background: var(--ocean-mid);
+    border-radius: 2px;
+    margin-bottom: 10px;
+    overflow: hidden;
+}
+
+.timeline-progress-fill {
+    height: 100%;
+    background: var(--gold);
+    border-radius: 2px;
+    transition: width 0.4s ease;
+    width: 10%;
+    /* set by JS */
+}
+
+.timeline-progress-label {
+    font-size: 0.78rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #9bb5cc;
+    margin-bottom: 36px;
+}
+
+/* ── Event card ─────────────────────────── */
+.timeline-card {
+    background: var(--ocean-mid);
+    border: 1px solid #1e4a6e;
+    border-radius: 16px;
+    padding: 44px 48px;
+    margin-bottom: 36px;
+    text-align: left;
+    position: relative;
+    transition: opacity 0.25s;
+}
+
+.tl-era {
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 700;
+}
+
+.tl-year {
+    font-family: 'Playfair Display', serif;
+    font-size: 4rem;
+    color: var(--gold-lite);
+    line-height: 1;
+    margin-bottom: 16px;
+    font-variant-numeric: tabular-nums;
+}
+
+.tl-event {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #e8dfc8;
+    margin-bottom: 14px;
+    text-wrap: balance;
+}
+
+.tl-detail {
+    font-size: 0.93rem;
+    color: #9bb5cc;
+    line-height: 1.75;
+    margin-bottom: 20px;
+    max-width: 56ch;
+}
+
+.tl-power {
+    display: inline-block;
+    padding: 5px 14px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    background: rgba(184, 137, 42, 0.15);
+    color: var(--gold-lite);
+    border: 1px solid rgba(184, 137, 42, 0.3);
+}
+
+/* ── Nav buttons ────────────────────────── */
+.timeline-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.tl-btn {
+    background: transparent;
+    border: 2px solid var(--ocean-mid);
+    color: #9bb5cc;
+    padding: 11px 28px;
+    border-radius: 6px;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.tl-btn:hover:not(:disabled) {
+    border-color: var(--gold);
+    color: var(--gold-lite);
+}
+
+.tl-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+}
+
+/* ── Dot indicators ─────────────────────── */
+.tl-dots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.tl-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--ocean-mid);
+    border: 1px solid #1e4a6e;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+}
+
+.tl-dot.active {
+    background: var(--gold);
+    transform: scale(1.3);
+}
+
+@media (max-width: 600px) {
+    .timeline-section {
+        padding: 48px 20px;
+    }
+
+    .timeline-card {
+        padding: 28px 24px;
+    }
+
+    .tl-year {
+        font-size: 2.8rem;
+    }
+
+    .tl-btn {
+        padding: 10px 16px;
+        font-size: 0.8rem;
+    }
+}

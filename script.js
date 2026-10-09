@@ -608,3 +608,188 @@ function filterGuides(lang) {
 
 // Render all guides on page load
 renderGuides(guides, null)
+
+// ═══════════════════════════════════════════
+// SECTION 6: CASTLE HISTORY TIMELINE
+// Covers: array of objects, index-based navigation
+// ═══════════════════════════════════════════
+
+// ── Timeline data array ───────────────────────────────────────
+// Each item is an object with: year, era, event, detail, power
+// "power" = which colonial power was in control at the time
+
+var timeline = [
+    {
+        year: 1482,
+        era: "Portuguese Era",
+        event: "The Castle is Built",
+        detail: "Portuguese explorer Diogo de Azambuja constructs São Jorge da Mina " +
+            "on the Gold Coast. It becomes Europe's first permanent trading post " +
+            "in sub-Saharan Africa, initially built to control the gold trade.",
+        power: "🇵🇹 Portugal"
+    },
+    {
+        year: 1486,
+        era: "Portuguese Era",
+        event: "Royal Charter Granted",
+        detail: "King John II of Portugal grants Elmina a royal charter, establishing " +
+            "it as the administrative capital of Portuguese West Africa. The castle " +
+            "is expanded and fortified.",
+        power: "🇵🇹 Portugal"
+    },
+    {
+        year: 1553,
+        era: "Portuguese Era",
+        event: "Slave Trade Begins",
+        detail: "The castle's function shifts. What began as a gold-trading fort becomes " +
+            "a key holding point for enslaved Africans before their forced passage " +
+            "across the Atlantic. The dungeons are expanded.",
+        power: "🇵🇹 Portugal"
+    },
+    {
+        year: 1637,
+        era: "Dutch Era",
+        event: "Dutch Forces Capture the Castle",
+        detail: "The Dutch West India Company seizes Elmina from the Portuguese after " +
+            "a brief siege. They rename it and make it the headquarters of their " +
+            "Gold Coast operations, continuing the slave trade at a larger scale.",
+        power: "🇳🇱 Netherlands"
+    },
+    {
+        year: 1660,
+        era: "Dutch Era",
+        event: "Fort Coenraadsburg Built",
+        detail: "The Dutch construct Fort Coenraadsburg on the hill overlooking the castle " +
+            "to protect it from attack. The two structures create an interlocking " +
+            "defensive system still visible today.",
+        power: "🇳🇱 Netherlands"
+    },
+    {
+        year: 1790,
+        era: "Dutch Era",
+        event: "Peak of the Slave Trade",
+        detail: "Elmina Castle processes tens of thousands of enslaved people annually " +
+            "at its peak. The 'Door of No Return' becomes the last point of contact " +
+            "with African soil for countless captives.",
+        power: "🇳🇱 Netherlands"
+    },
+    {
+        year: 1814,
+        era: "Abolition Era",
+        event: "Dutch Abolish the Slave Trade",
+        detail: "Following international pressure and the British abolition of 1807, " +
+            "the Netherlands formally abolishes the slave trade. Elmina's purpose " +
+            "shifts again — but the castle remains under Dutch control.",
+        power: "🇳🇱 Netherlands"
+    },
+    {
+        year: 1872,
+        era: "British Era",
+        event: "Handed to the British",
+        detail: "The Netherlands sells all its Gold Coast possessions — including Elmina " +
+            "Castle — to Great Britain as part of the Anglo-Dutch Treaty. The castle " +
+            "becomes part of the British Gold Coast colony.",
+        power: "🇬🇧 Britain"
+    },
+    {
+        year: 1957,
+        era: "Independence",
+        event: "Ghana Gains Independence",
+        detail: "Ghana becomes the first sub-Saharan African country to gain independence " +
+            "from colonial rule. Elmina Castle, along with all colonial structures, " +
+            "passes into the hands of the Ghanaian state.",
+        power: "🇬🇭 Ghana"
+    },
+    {
+        year: 1979,
+        era: "World Heritage",
+        event: "UNESCO World Heritage Site",
+        detail: "UNESCO designates Elmina Castle — along with Cape Coast Castle and other " +
+            "forts along Ghana's coast — as a World Heritage Site. It is recognised " +
+            "as a site of outstanding universal value and global significance.",
+        power: "🇬🇭 Ghana"
+    }
+]
+
+// ── Current index — tracks which event is showing ────────────
+var currentIndex = 0
+
+// ── renderTimelineEvent(index) ───────────────────────────────
+// Takes an index number, reads timeline[index],
+// and updates every element in the card.
+
+function renderTimelineEvent(index) {
+    var event = timeline[index]   // get the object at this position
+
+    // Update card content
+    document.getElementById("tlEra").textContent = event.era
+    document.getElementById("tlYear").textContent = event.year
+    document.getElementById("tlEvent").textContent = event.event
+    document.getElementById("tlDetail").textContent = event.detail
+    document.getElementById("tlPower").textContent = event.power
+
+    // Update progress bar
+    var percent = ((index + 1) / timeline.length) * 100
+    document.getElementById("timelineProgress").style.width = percent + "%"
+    document.getElementById("timelineLabel").textContent =
+        "Event " + (index + 1) + " of " + timeline.length
+
+    // Enable/disable prev and next buttons
+    document.getElementById("tlPrev").disabled = (index === 0)
+    document.getElementById("tlNext").disabled = (index === timeline.length - 1)
+
+    // Update dot indicators
+    var dots = document.querySelectorAll(".tl-dot")
+    dots.forEach(function (dot, i) {
+        if (i === index) {
+            dot.classList.add("active")
+        } else {
+            dot.classList.remove("active")
+        }
+    })
+}
+
+// ── timelineStep(direction) ──────────────────────────────────
+// Called by the prev (-1) and next (+1) buttons.
+// Moves currentIndex by direction, then re-renders.
+
+function timelineStep(direction) {
+    var newIndex = currentIndex + direction
+
+    // Guard: don't go below 0 or above the last index
+    if (newIndex < 0 || newIndex >= timeline.length) return
+
+    currentIndex = newIndex
+    renderTimelineEvent(currentIndex)
+}
+
+// ── Build the dot indicators ─────────────────────────────────
+// One dot per timeline event — clicking a dot jumps to that event.
+// Uses a for loop (Lesson 10 Part 6) to create each dot.
+
+function buildTimelineDots() {
+    var dotsContainer = document.getElementById("tlDots")
+    dotsContainer.innerHTML = ""
+
+    for (var i = 0; i < timeline.length; i++) {
+        var dot = document.createElement("span")
+        dot.className = "tl-dot"
+        dot.setAttribute("data-index", i)   // store which event this dot links to
+        dot.title = timeline[i].year        // tooltip shows the year on hover
+
+            // Each dot needs its own click handler
+            // We use an immediately invoked function to capture i correctly
+            ; (function (index) {
+                dot.addEventListener("click", function () {
+                    currentIndex = index
+                    renderTimelineEvent(currentIndex)
+                })
+            })(i)
+
+        dotsContainer.appendChild(dot)
+    }
+}
+
+// ── Initialise on page load ──────────────────────────────────
+buildTimelineDots()
+renderTimelineEvent(0)
