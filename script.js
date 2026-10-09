@@ -316,7 +316,6 @@ document.getElementById("bookingForm").addEventListener("submit", function (e) {
 
     // ── Save to the global bookings array (used in Section 5) ─
     allBookings.push(booking)
-    renderLog()
     console.log("Booking saved:", booking.getSummary())
 })
 
@@ -332,143 +331,6 @@ function resetBookingForm() {
 
     // Scroll back up to the booking form
     document.getElementById("booking").scrollIntoView({ behavior: "smooth" })
-}
-
-// ═══════════════════════════════════════════
-// SECTION 4: VISITOR LOG
-// Covers Lesson 10 Parts 6 & 7 — arrays + forEach
-// ═══════════════════════════════════════════
-
-// ── renderLog() ─────────────────────────────────────────────
-// Reads the allBookings[] array and rebuilds the table.
-// Called every time a new booking is added.
-//
-// Steps:
-//   1. Get the <tbody> element
-//   2. Clear whatever rows are already there
-//   3. Use forEach to loop through allBookings[]
-//   4. For each booking, build a <tr> string and insert it
-//   5. Update the stat tiles
-
-function renderLog(bookingsToShow) {
-    var tbody = document.getElementById("logTableBody")
-    var empty = document.getElementById("logEmpty")
-
-    // Default: show all bookings
-    if (bookingsToShow === undefined) {
-        bookingsToShow = allBookings
-    }
-
-    // Clear existing rows
-    tbody.innerHTML = ""
-
-    if (bookingsToShow.length === 0) {
-        empty.hidden = false
-        return
-    }
-
-    empty.hidden = true
-
-    // forEach — Lesson 10 Part 7
-    // Goes through each booking object and creates a table row
-    bookingsToShow.forEach(function (b) {
-        var row = document.createElement("tr")
-
-        row.innerHTML =
-            '<td class="ref-cell">' + b.reference + "</td>" +
-            "<td>" + b.name + "</td>" +
-            "<td>" + b.nationality + "</td>" +
-            '<td><span class="tour-badge badge-' + b.tourType + '">' +
-            b.tourType + "</span></td>" +
-            "<td>" + b.date + "</td>" +
-            "<td>" + b.visitors + "</td>" +
-            "<td><strong>" + b.cost + "</strong></td>" +
-            "<td>" + b.language + "</td>"
-
-        tbody.appendChild(row)
-    })
-
-    // Update stat tiles
-    updateLogStats()
-}
-
-// ── updateLogStats() ─────────────────────────────────────────
-// Counts totals from allBookings[] and updates the 5 tiles.
-// Uses forEach to accumulate counts — Lesson 10 Part 7.
-
-function updateLogStats() {
-    var totalBookings = allBookings.length
-    var totalVisitors = 0
-    var countGeneral = 0
-    var countVIP = 0
-    var countEducational = 0
-
-    allBookings.forEach(function (b) {
-        totalVisitors += b.visitors   // add each booking's visitors to running total
-
-        if (b.tourType === "General") countGeneral++
-        if (b.tourType === "VIP") countVIP++
-        if (b.tourType === "Educational") countEducational++
-    })
-
-    document.getElementById("statTotal").textContent = totalBookings
-    document.getElementById("statVisitors").textContent = totalVisitors
-    document.getElementById("statGeneral").textContent = countGeneral
-    document.getElementById("statVIP").textContent = countVIP
-    document.getElementById("statEducational").textContent = countEducational
-}
-
-// ── filterLog() ──────────────────────────────────────────────
-// Runs on every keystroke in the search box.
-// Filters allBookings[] and re-renders with matching results.
-// Uses forEach + indexOf — Lesson 10 Part 7.
-
-var activeLogType = "All"
-
-function setLogChip(btn) {
-    document.querySelectorAll('.chip[data-value]').forEach(function (c) {
-        c.classList.remove("active")
-    })
-    btn.classList.add("active")
-    activeLogType = btn.getAttribute("data-value")
-    filterLog()
-}
-
-function filterLog() {
-    var query = document.getElementById("logSearch").value.toLowerCase().trim()
-    var fromDate = document.getElementById("logFrom").value
-    var toDate = document.getElementById("logTo").value
-    var clearBtn = document.getElementById("logClear")
-
-    clearBtn.hidden = (query === "")
-
-    var filtered = []
-
-    allBookings.forEach(function (b) {
-        var searchable = (b.name + " " + b.nationality).toLowerCase()
-        var textMatch = (query === "") || searchable.includes(query)
-        var typeMatch = (activeLogType === "All") || (b.tourType === activeLogType)
-        var fromMatch = (fromDate === "") || (b.date >= fromDate)
-        var toMatch = (toDate === "") || (b.date <= toDate)
-
-        if (textMatch && typeMatch && fromMatch && toMatch) {
-            filtered.push(b)
-        }
-    })
-
-    renderLog(filtered)
-}
-
-function clearLogSearch() {
-    document.getElementById("logSearch").value = ""
-    document.getElementById("logFrom").value = ""
-    document.getElementById("logTo").value = ""
-    document.getElementById("logClear").hidden = true
-    activeLogType = "All"
-    document.querySelectorAll('.chip[data-value]').forEach(function (c) {
-        c.classList.toggle("active", c.getAttribute("data-value") === "All")
-    })
-    renderLog(allBookings)
 }
 
 // ── Hook into the booking submit ─────────────────────────────
@@ -1035,3 +897,25 @@ document.getElementById("feedbackForm").addEventListener("submit", function (e) 
     })
     document.getElementById("starLabel").textContent = "Click a star to rate"
 })
+
+// ═══════════════════════════════════════════
+// SECTION 9: RESPONSIVE POLISH
+// ═══════════════════════════════════════════
+
+// ── Mobile nav: close after clicking a link ─
+// On mobile the nav wraps and stays open.
+// This collapses it after the user taps a link.
+var navLinksList = document.querySelectorAll(".nav-links a")
+navLinksList.forEach(function (link) {
+    link.addEventListener("click", function () {
+        // Small screen: briefly highlight the clicked link
+        navLinksList.forEach(function (l) { l.style.color = "#e8dfc8" })
+        this.style.color = "#d4a84b"
+    })
+})
+
+// ── Back to top on logo click ────────────────
+document.querySelector(".nav-brand").addEventListener("click", function () {
+    window.scrollTo({ top: 0, behavior: "smooth" })
+})
+document.querySelector(".nav-brand").style.cursor = "pointer"

@@ -27,7 +27,6 @@
         <ul class="nav-links">
             <li><a href="#home">Home</a></li>
             <li><a href="#booking">Book a Tour</a></li>
-            <li><a href="#visitor-log">Visitor Log</a></li>
             <li><a href="#guides">Tour Guides</a></li>
             <li><a href="#history">History</a></li>
             <li><a href="#feedback">Feedback</a></li>
@@ -324,100 +323,6 @@
             <button class="new-booking-btn" onclick="resetBookingForm()">
                 Make Another Booking
             </button>
-
-        </div>
-    </section>
-    <!-- ═══════════════════════════════════════════
-     SECTION 4: VISITOR LOG / DASHBOARD
-═══════════════════════════════════════════ -->
-    <section id="visitor-log" class="log-section">
-        <div class="log-container">
-
-            <div class="log-header">
-                <h2>Visitor Log</h2>
-                <p>Every confirmed booking appears here in real time.</p>
-            </div>
-
-            <!-- STAT TILES -->
-            <div class="log-stats">
-                <div class="log-stat-tile">
-                    <span class="log-stat-num" id="statTotal">0</span>
-                    <span class="log-stat-label">Total Bookings</span>
-                </div>
-                <div class="log-stat-tile">
-                    <span class="log-stat-num" id="statVisitors">0</span>
-                    <span class="log-stat-label">Total Visitors</span>
-                </div>
-                <div class="log-stat-tile">
-                    <span class="log-stat-num" id="statGeneral">0</span>
-                    <span class="log-stat-label">General Tours</span>
-                </div>
-                <div class="log-stat-tile">
-                    <span class="log-stat-num" id="statVIP">0</span>
-                    <span class="log-stat-label">VIP Tours</span>
-                </div>
-                <div class="log-stat-tile">
-                    <span class="log-stat-num" id="statEducational">0</span>
-                    <span class="log-stat-label">Educational Tours</span>
-                </div>
-            </div>
-
-            <!-- SEARCH BAR (Section 9 will power this fully) -->
-            <div class="log-controls">
-
-                <div class="search-input-wrap">
-                    <span class="search-icon"></span>
-                    <input type="text" id="logSearch" placeholder="Search by name or nationality…"
-                        oninput="filterLog()">
-                    <button class="search-clear" id="logClear" onclick="clearLogSearch()" hidden>✕</button>
-                </div>
-
-                <div class="search-chips">
-                    <span class="chip-label">Tour:</span>
-                    <button class="chip active" data-value="All" onclick="setLogChip(this)">All</button>
-                    <button class="chip" data-value="General" onclick="setLogChip(this)">General</button>
-                    <button class="chip" data-value="VIP" onclick="setLogChip(this)">VIP</button>
-                    <button class="chip" data-value="Educational" onclick="setLogChip(this)">Educational</button>
-                </div>
-
-                <div class="search-dates">
-                    <div class="date-field">
-                        <label for="logFrom">From</label>
-                        <input type="date" id="logFrom" onchange="filterLog()">
-                    </div>
-                    <div class="date-field">
-                        <label for="logTo">To</label>
-                        <input type="date" id="logTo" onchange="filterLog()">
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- TABLE -->
-            <div class="log-table-wrapper">
-                <table class="log-table">
-                    <thead>
-                        <tr>
-                            <th>Reference</th>
-                            <th>Name</th>
-                            <th>Nationality</th>
-                            <th>Tour Type</th>
-                            <th>Date</th>
-                            <th>Visitors</th>
-                            <th>Cost</th>
-                            <th>Language</th>
-                        </tr>
-                    </thead>
-                    <tbody id="logTableBody">
-                        <!-- rows inserted by JS -->
-                    </tbody>
-                </table>
-
-                <!-- Empty state — shown when no bookings yet -->
-                <div class="log-empty" id="logEmpty">
-                    <p>No bookings yet. Submit the form above to see entries here.</p>
-                </div>
-            </div>
 
         </div>
     </section>
