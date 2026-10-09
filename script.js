@@ -793,3 +793,219 @@ function buildTimelineDots() {
 // ── Initialise on page load ──────────────────────────────────
 buildTimelineDots()
 renderTimelineEvent(0)
+
+
+// ═══════════════════════════════════════════
+// SECTION 7: VISITOR FEEDBACK
+// Covers: arrays, push, forEach, average calc
+// ═══════════════════════════════════════════
+
+// ── Feedback array ────────────────────────────────────────────
+// Every submitted review is pushed into this array as an object.
+var allFeedback = []
+
+// Tracks which star the user has clicked (0 = none selected)
+var selectedRating = 0
+
+// ── Star picker interactions ──────────────────────────────────
+// When the user hovers over a star, highlight it and all before it.
+// When they click, lock that rating in.
+
+var stars = document.querySelectorAll(".star")
+
+stars.forEach(function (star) {
+
+    // Hover: highlight up to this star
+    star.addEventListener("mouseover", function () {
+        var hoverVal = parseInt(this.getAttribute("data-value"))
+        stars.forEach(function (s) {
+            var sVal = parseInt(s.getAttribute("data-value"))
+            if (sVal <= hoverVal) {
+                s.classList.add("hovered")
+            } else {
+                s.classList.remove("hovered")
+            }
+        })
+    })
+
+    // Mouse leaves the picker: go back to showing selected rating
+    star.addEventListener("mouseleave", function () {
+        stars.forEach(function (s) {
+            s.classList.remove("hovered")
+        })
+    })
+
+    // Click: lock in the rating
+    star.addEventListener("click", function () {
+        selectedRating = parseInt(this.getAttribute("data-value"))
+
+        // Update which stars show as selected
+        stars.forEach(function (s) {
+            var sVal = parseInt(s.getAttribute("data-value"))
+            if (sVal <= selectedRating) {
+                s.classList.add("selected")
+            } else {
+                s.classList.remove("selected")
+            }
+        })
+
+        // Update the label below the stars
+        var labels = ["", "Poor", "Fair", "Good", "Very Good", "Excellent"]
+        document.getElementById("starLabel").textContent =
+            selectedRating + " / 5 — " + labels[selectedRating]
+
+        // Clear any rating error
+        document.getElementById("fbRatingError").textContent = ""
+    })
+})
+
+// Mouse leaves the whole picker container: restore selected state
+document.getElementById("starPicker").addEventListener("mouseleave", function () {
+    stars.forEach(function (s) {
+        s.classList.remove("hovered")
+    })
+})
+
+// ── buildStarString(rating) ───────────────────────────────────
+// Converts a number (e.g. 4) into a string of filled/empty stars.
+// e.g. buildStarString(4) → "★★★★☆"
+
+function buildStarString(rating) {
+    var result = ""
+    for (var i = 1; i <= 5; i++) {
+        result += (i <= rating) ? "★" : "☆"
+    }
+    return result
+}
+
+// ── updateRatingSummary() ─────────────────────────────────────
+// Recalculates the average from allFeedback[] using forEach.
+// Updates the big score, star display and review count.
+
+function updateRatingSummary() {
+    var summary = document.getElementById("ratingSummary")
+
+    if (allFeedback.length === 0) {
+        summary.hidden = true
+        return
+    }
+
+    summary.hidden = false
+
+    // Add up all ratings using forEach
+    var total = 0
+    allFeedback.forEach(function (fb) {
+        total += fb.rating
+    })
+
+    // Calculate average and round to 1 decimal place
+    var average = total / allFeedback.length
+    var rounded = Math.round(average * 10) / 10   // e.g. 4.333 → 4.3
+
+    document.getElementById("avgScore").textContent = rounded.toFixed(1)
+    document.getElementById("avgStars").textContent = buildStarString(Math.round(average))
+    document.getElementById("avgCount").textContent = allFeedback.length +
+        (allFeedback.length === 1 ? " review" : " reviews")
+}
+
+// ── renderReviews() ───────────────────────────────────────────
+// Rebuilds the reviews list from allFeedback[].
+// Most recent review appears at the top (we reverse the array).
+
+function renderReviews() {
+    var list = document.getElementById("reviewsList")
+    var empty = document.getElementById("reviewsEmpty")
+
+    list.innerHTML = ""
+
+    if (allFeedback.length === 0) {
+        list.appendChild(empty)
+        empty.hidden = false
+        return
+    }
+
+    empty.hidden = true
+
+    // Reverse copy so newest appears first
+    var reversed = allFeedback.slice().reverse()
+
+    reversed.forEach(function (fb) {
+        var card = document.createElement("div")
+        card.className = "review-card"
+
+        card.innerHTML =
+            '<div class="review-top">' +
+            '<div>' +
+            '<div class="review-name">' + fb.name + "</div>" +
+            '<div class="review-country">' + (fb.country || "Visitor") + "</div>" +
+            "</div>" +
+            '<div class="review-stars">' + buildStarString(fb.rating) + "</div>" +
+            "</div>" +
+            '<p class="review-comment">"' + fb.comment + '"</p>'
+
+        list.appendChild(card)
+    })
+}
+
+// ── Feedback form submit ──────────────────────────────────────
+document.getElementById("feedbackForm").addEventListener("submit", function (e) {
+    e.preventDefault()
+
+    var name = document.getElementById("fbName").value.trim()
+    var country = document.getElementById("fbCountry").value.trim()
+    var comment = document.getElementById("fbComment").value.trim()
+    var valid = true
+
+    // Validate name
+    if (name === "") {
+        document.getElementById("fbNameError").textContent = "Please enter your name."
+        document.getElementById("fbName").classList.add("invalid")
+        valid = false
+    } else {
+        document.getElementById("fbNameError").textContent = ""
+        document.getElementById("fbName").classList.remove("invalid")
+    }
+
+    // Validate rating
+    if (selectedRating === 0) {
+        document.getElementById("fbRatingError").textContent = "Please select a star rating."
+        valid = false
+    } else {
+        document.getElementById("fbRatingError").textContent = ""
+    }
+
+    // Validate comment
+    if (comment.length < 10) {
+        document.getElementById("fbCommentError").textContent =
+            "Please write at least 10 characters."
+        document.getElementById("fbComment").classList.add("invalid")
+        valid = false
+    } else {
+        document.getElementById("fbCommentError").textContent = ""
+        document.getElementById("fbComment").classList.remove("invalid")
+    }
+
+    if (!valid) return
+
+    // Build feedback object and push to array
+    var feedback = {
+        name: name,
+        country: country,
+        rating: selectedRating,
+        comment: comment
+    }
+
+    allFeedback.push(feedback)
+
+    // Update display
+    renderReviews()
+    updateRatingSummary()
+
+    // Reset form
+    document.getElementById("feedbackForm").reset()
+    selectedRating = 0
+    stars.forEach(function (s) {
+        s.classList.remove("selected", "hovered")
+    })
+    document.getElementById("starLabel").textContent = "Click a star to rate"
+})
