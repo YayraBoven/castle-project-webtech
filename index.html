@@ -30,11 +30,12 @@
             <li><a href="#guides">Tour Guides</a></li>
             <li><a href="#history">History</a></li>
             <li><a href="#feedback">Feedback</a></li>
+            <li><a href="#admin">Staff</a></li>
         </ul>
     </nav>
 
     <!-- ═══════════════════════════════════════════
-       HERO SECTION
+       1. HERO SECTION
   ═══════════════════════════════════════════ -->
     <section id="home" class="hero">
         <!--
@@ -50,7 +51,7 @@
             <p class="hero-sub">Est. 1482 · UNESCO World Heritage Site</p>
             <h1 class="hero-title">The Elmina Castle [Fort St. George]</h1>
             <p class="hero-desc">Walk the corridors of West Africa's oldest European building.<br>
-                A place of trade, captivity, and resilience — now open to the world.</p>
+                A place of trade, captivity, and resilience now open to the world!</p>
             <a href="#booking" class="hero-btn">Book Your Tour</a>
         </div>
     </section>
@@ -86,8 +87,8 @@
             <p>Built by the Portuguese in 1482 as São Jorge da Mina (Saint George of the Mine),
                 Elmina Castle is the oldest European building in sub-Saharan Africa. It witnessed
                 centuries of the transatlantic slave trade before passing to Dutch and then British
-                hands — and finally to independent Ghana in 1957.</p>
-            <p>Today it stands as a symbol of remembrance, resilience, and cultural pride —
+                hands and finally to independent Ghana in 1957.</p>
+            <p>Today it stands as a symbol of remembrance, resilience, and cultural pride,
                 drawing visitors from every corner of the globe.</p>
         </div>
         <div class="about-images">
@@ -115,7 +116,7 @@
             </div>
             <div class="fact-card">
                 <h3>The Door of No Return</h3>
-                <p>Enslaved Africans passed through this gate onto ships headed for the Americas — never to return.</p>
+                <p>Enslaved Africans passed through this gate onto ships headed for the Americans never to return.</p>
             </div>
             <div class="fact-card">
                 <h3>Three Colonial Powers</h3>
@@ -132,7 +133,7 @@
             </div>
             <div class="fact-card">
                 <h3>Elmina Town</h3>
-                <p>The surrounding town is one of Ghana's oldest fishing communities — a living heritage in itself.</p>
+                <p>The surrounding town is one of Ghana's oldest fishing communities, a living heritage in itself.</p>
             </div>
         </div>
     </section>
@@ -328,7 +329,7 @@
     </section>
 
     <!-- ═══════════════════════════════════════════
-     SECTION 5: TOUR GUIDE AVAILABILITY CHECKER
+     SECTION 4: TOUR GUIDE AVAILABILITY CHECKER
 ═══════════════════════════════════════════ -->
     <section id="guides" class="guides-section">
         <div class="guides-container">
@@ -362,7 +363,7 @@
     </section>
 
     <!-- ═══════════════════════════════════════════
-     SECTION 6: CASTLE HISTORY TIMELINE
+     SECTION 5: CASTLE HISTORY TIMELINE
 ═══════════════════════════════════════════ -->
     <section id="history" class="timeline-section">
         <div class="timeline-container">
@@ -401,7 +402,7 @@
     </section>
 
     <!-- ═══════════════════════════════════════════
-     SECTION 7: VISITOR FEEDBACK
+     SECTION 6: VISITOR FEEDBACK
 ═══════════════════════════════════════════ -->
     <section id="feedback" class="feedback-section">
         <div class="feedback-container">
@@ -475,6 +476,94 @@
                 </div>
 
             </div>
+        </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════ -->
+    <!-- SECTION 7: ADMIN PANEL (Staff Only)         -->
+    <!-- ═══════════════════════════════════════════ -->
+    <section id="admin" class="section-pad">
+        <div class="container">
+            <h2 class="section-title">Staff Portal</h2>
+            <p class="section-sub">Restricted access — authorised personnel only.</p>
+
+            <!-- LOGIN SCREEN -->
+            <div id="adminLogin" class="admin-login-box">
+                <div class="admin-lock-icon"></div>
+                <h3>Enter Staff Password</h3>
+                <div class="admin-input-row">
+                    <input type="password" id="adminPasswordInput" placeholder="Password" class="admin-input" />
+                    <button onclick="checkAdminLogin()" class="admin-login-btn">Login</button>
+                </div>
+                <span id="adminLoginError" class="admin-error"></span>
+            </div>
+
+            <!-- ADMIN PANEL (hidden until logged in) -->
+            <div id="adminPanel" hidden>
+
+                <div class="admin-header-row">
+                    <p class="admin-welcome">✓ Logged in as Staff</p>
+                    <button onclick="adminLogout()" class="admin-logout-btn">Logout</button>
+                </div>
+
+                <!-- Stat tiles -->
+                <div class="log-stats" id="adminStats">
+                    <div class="log-stat-tile">
+                        <span class="stat-num" id="statTotal">0</span>
+                        <span class="stat-label">Total Bookings</span>
+                    </div>
+                    <div class="log-stat-tile">
+                        <span class="stat-num" id="statGeneral">0</span>
+                        <span class="stat-label">General</span>
+                    </div>
+                    <div class="log-stat-tile">
+                        <span class="stat-num" id="statVIP">0</span>
+                        <span class="stat-label">VIP</span>
+                    </div>
+                    <div class="log-stat-tile">
+                        <span class="stat-num" id="statEducational">0</span>
+                        <span class="stat-label">Educational</span>
+                    </div>
+                </div>
+
+                <!-- Search + filter -->
+                <div class="log-controls">
+                    <div class="search-input-wrap">
+                        <input type="text" id="adminSearch" placeholder="Search by name…" class="admin-search"
+                            oninput="filterAdminLog()" />
+                        <button onclick="clearAdminSearch()" class="search-clear-btn">✕</button>
+                    </div>
+                    <div class="chip-row">
+                        <button class="chip active" onclick="setAdminChip(this, 'All')">All</button>
+                        <button class="chip" onclick="setAdminChip(this, 'General')">General</button>
+                        <button class="chip" onclick="setAdminChip(this, 'VIP')">VIP</button>
+                        <button class="chip" onclick="setAdminChip(this, 'Educational')">Educational</button>
+                    </div>
+                </div>
+
+                <!-- Bookings table -->
+                <div class="log-table-wrap">
+                    <table class="log-table">
+                        <thead>
+                            <tr>
+                                <th>Reference</th>
+                                <th>Name</th>
+                                <th>Tour Type</th>
+                                <th>Date</th>
+                                <th>Visitors</th>
+                                <th>Cost</th>
+                                <th>Nationality</th>
+                            </tr>
+                        </thead>
+                        <tbody id="adminTableBody">
+                            <tr id="adminEmptyRow">
+                                <td colspan="7" style="text-align:center; opacity:.6;">No bookings yet.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /adminPanel -->
         </div>
     </section>
 

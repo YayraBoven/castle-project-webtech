@@ -753,7 +753,7 @@ select.invalid {
 }
 
 /* ═══════════════════════════════════════════
-   SECTION 5: TOUR GUIDE CHECKER
+   SECTION 4: TOUR GUIDE CHECKER
 ═══════════════════════════════════════════ */
 .guides-section {
     padding: 72px 40px;
@@ -941,7 +941,7 @@ select.invalid {
 }
 
 /* ═══════════════════════════════════════════
-   SECTION 6: HISTORY TIMELINE
+   SECTION 5: HISTORY TIMELINE
 ═══════════════════════════════════════════ */
 .timeline-section {
     padding: 72px 40px;
@@ -1128,7 +1128,7 @@ select.invalid {
 }
 
 /* ═══════════════════════════════════════════
-   SECTION 7: VISITOR FEEDBACK
+   SECTION 6: VISITOR FEEDBACK
 ═══════════════════════════════════════════ */
 .feedback-section {
     padding: 72px 40px;
@@ -1485,7 +1485,7 @@ textarea.invalid {
 }
 
 /* ═══════════════════════════════════════════
-   SECTION 9: RESPONSIVE POLISH
+   SECTION 7: RESPONSIVE POLISH
    Final tweaks for smooth experience
 ═══════════════════════════════════════════ */
 
@@ -1643,4 +1643,224 @@ textarea:focus-visible {
 /* ── Footer spacing ──────────────────────── */
 footer {
     margin-top: 0;
+}
+
+/* ═══════════════════════════════════════════
+   SECTION 8: ADMIN PANEL
+═══════════════════════════════════════════ */
+
+.admin-login-box {
+    max-width: 420px;
+    margin: 2rem auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.admin-lock-icon {
+    font-size: 2.5rem;
+    margin-bottom: .75rem;
+}
+
+.admin-login-box {
+    max-width: 420px;
+    margin: 2rem auto;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    /* ← add this */
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    text-align: center;
+}
+
+.admin-input-row {
+    display: flex;
+    gap: .5rem;
+    justify-content: center;
+}
+
+.admin-input {
+    padding: .6rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: .95rem;
+    flex: 1;
+}
+
+.admin-login-btn {
+    background: var(--gold);
+    color: #1a0f00;
+    border: none;
+    padding: .6rem 1.2rem;
+    border-radius: 8px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.admin-error {
+    display: block;
+    margin-top: .75rem;
+    color: #c0392b;
+    font-size: .88rem;
+    min-height: 1.2em;
+}
+
+.admin-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.admin-welcome {
+    color: #2e7d32;
+    font-weight: 600;
+}
+
+.admin-logout-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: .4rem .9rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: .88rem;
+}
+
+.admin-logout-btn:hover {
+    background: var(--card-bg);
+}
+
+.admin-search {
+    width: 100%;
+    padding: .6rem 2.2rem .6rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background: var(--bg);
+    color: var(--text);
+    font-size: .95rem;
+}
+
+.chip-row {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    margin-top: .75rem;
+}
+
+#admin .section-title,
+#admin .section-sub {
+    text-align: center;
+}
+
+/* Stat tiles — force horizontal row */
+#admin .log-stats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+#admin .log-stat-tile {
+    flex: 1 1 150px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    border-radius: 10px;
+    padding: 1.25rem 1rem;
+    text-align: center;
+}
+
+#admin .stat-num {
+    display: block;
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+}
+
+#admin .stat-label {
+    display: block;
+    font-size: .78rem;
+    text-transform: uppercase;
+    letter-spacing: .08em;
+    opacity: .7;
+    margin-top: .25rem;
+}
+
+/* Table styling */
+#admin .log-table-wrap {
+    overflow-x: auto;
+    margin-top: 1.5rem;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+}
+
+#admin .log-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .92rem;
+}
+
+#admin .log-table th {
+    background: var(--card-bg);
+    padding: .75rem 1rem;
+    text-align: left;
+    font-size: .75rem;
+    text-transform: uppercase;
+    letter-spacing: .07em;
+    color: var(--gold);
+    border-bottom: 1px solid var(--border);
+}
+
+#admin .log-table td {
+    padding: .75rem 1rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+}
+
+#admin .log-table tr:last-child td {
+    border-bottom: none;
+}
+
+#admin .log-table tr:hover td {
+    background: var(--card-bg);
+}
+
+/* Search bar full width */
+#admin .log-controls {
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+#admin .search-input-wrap {
+    position: relative;
+}
+
+#admin .admin-search {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#admin .search-clear-btn {
+    position: absolute;
+    right: .6rem;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--text);
+    cursor: pointer;
+    opacity: .5;
+    font-size: .85rem;
+}
+
+#admin .search-input-wrap {
+  border: none;
 }

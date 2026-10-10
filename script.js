@@ -342,7 +342,7 @@ function resetBookingForm() {
 //   renderLog()
 
 // ═══════════════════════════════════════════
-// SECTION 5: TOUR GUIDE AVAILABILITY CHECKER
+// SECTION 4: TOUR GUIDE AVAILABILITY CHECKER
 // Covers: arrays of objects, forEach, indexOf
 // ═══════════════════════════════════════════
 
@@ -498,7 +498,7 @@ function filterGuides(lang) {
 renderGuides(guides, null)
 
 // ═══════════════════════════════════════════
-// SECTION 6: CASTLE HISTORY TIMELINE
+// SECTION 5: CASTLE HISTORY TIMELINE
 // Covers: array of objects, index-based navigation
 // ═══════════════════════════════════════════
 
@@ -684,7 +684,7 @@ renderTimelineEvent(0)
 
 
 // ═══════════════════════════════════════════
-// SECTION 7: VISITOR FEEDBACK
+// SECTION 6: VISITOR FEEDBACK
 // Covers: arrays, push, forEach, average calc
 // ═══════════════════════════════════════════
 
@@ -804,10 +804,13 @@ function renderReviews() {
     var list = document.getElementById("reviewsList")
     var empty = document.getElementById("reviewsEmpty")
 
-    list.innerHTML = ""
+    // Clear only the review cards, not the empty message
+    var cards = list.querySelectorAll(".review-card")
+    cards.forEach(function (card) {
+        list.removeChild(card)
+    })
 
     if (allFeedback.length === 0) {
-        list.appendChild(empty)
         empty.hidden = false
         return
     }
@@ -899,7 +902,7 @@ document.getElementById("feedbackForm").addEventListener("submit", function (e) 
 })
 
 // ═══════════════════════════════════════════
-// SECTION 9: RESPONSIVE POLISH
+// SECTION 7: RESPONSIVE POLISH
 // ═══════════════════════════════════════════
 
 // ── Mobile nav: close after clicking a link ─
@@ -919,3 +922,116 @@ document.querySelector(".nav-brand").addEventListener("click", function () {
     window.scrollTo({ top: 0, behavior: "smooth" })
 })
 document.querySelector(".nav-brand").style.cursor = "pointer"
+
+// ═══════════════════════════════════════════
+// SECTION 8: ADMIN PANEL
+// ═══════════════════════════════════════════
+
+var ADMIN_PASSWORD = "elmina2024"
+var activeAdminType = "All"
+
+function checkAdminLogin() {
+    var input = document.getElementById("adminPasswordInput").value
+    var error = document.getElementById("adminLoginError")
+
+    if (input === ADMIN_PASSWORD) {
+        document.getElementById("adminLogin").hidden = true
+        document.getElementById("adminPanel").hidden = false
+        error.textContent = ""
+        renderAdminLog()
+        updateAdminStats()
+    } else {
+        error.textContent = "Incorrect password. Please try again."
+        document.getElementById("adminPasswordInput").value = ""
+    }
+}
+
+// Allow pressing Enter in the password field
+document.getElementById("adminPasswordInput").addEventListener("keydown", function (e) {
+    if (e.key === "Enter") checkAdminLogin()
+})
+
+function adminLogout() {
+    document.getElementById("adminPanel").hidden = true
+    document.getElementById("adminLogin").hidden = false
+    document.getElementById("adminPasswordInput").value = ""
+    activeAdminType = "All"
+    // reset chip buttons
+    document.querySelectorAll("#admin .chip").forEach(function (c) {
+        c.classList.remove("active")
+    })
+    document.querySelector("#admin .chip").classList.add("active")
+}
+
+function updateAdminStats() {
+    var general = 0, vip = 0, educational = 0
+    allBookings.forEach(function (b) {
+        if (b.tourType === "General") general++
+        else if (b.tourType === "VIP") vip++
+        else if (b.tourType === "Educational") educational++
+    })
+    document.getElementById("statTotal").textContent = allBookings.length
+    document.getElementById("statGeneral").textContent = general
+    document.getElementById("statVIP").textContent = vip
+    document.getElementById("statEducational").textContent = educational
+}
+
+function renderAdminLog(list) {
+    var tbody = document.getElementById("adminTableBody")
+    var emptyRow = document.getElementById("adminEmptyRow")
+    var bookings = list || allBookings
+
+    // Remove old rows except the empty row
+    var rows = tbody.querySelectorAll("tr:not(#adminEmptyRow)")
+    rows.forEach(function (r) { tbody.removeChild(r) })
+
+    if (bookings.length === 0) {
+        emptyRow.hidden = false
+        return
+    }
+
+    emptyRow.hidden = true
+
+    // Show newest first
+    var reversed = bookings.slice().reverse()
+    reversed.forEach(function (b) {
+        var tr = document.createElement("tr")
+        tr.innerHTML =
+            "<td>" + b.reference + "</td>" +
+            "<td>" + b.name + "</td>" +
+            "<td>" + b.tourType + "</td>" +
+            "<td>" + b.date + "</td>" +
+            "<td>" + b.visitors + "</td>" +
+            "<td>" + b.cost + "</td>" +
+            "<td>" + b.nationality + "</td>"
+        tbody.appendChild(tr)
+    })
+}
+
+function setAdminChip(btn, type) {
+    activeAdminType = type
+    document.querySelectorAll("#admin .chip").forEach(function (c) {
+        c.classList.remove("active")
+    })
+    btn.classList.add("active")
+    filterAdminLog()
+}
+
+function filterAdminLog() {
+    var searchVal = document.getElementById("adminSearch").value.trim().toLowerCase()
+    var filtered = []
+
+    allBookings.forEach(function (b) {
+        var matchesType = (activeAdminType === "All" || b.tourType === activeAdminType)
+        var matchesSearch = (searchVal === "" || b.name.toLowerCase().indexOf(searchVal) !== -1)
+        if (matchesType && matchesSearch) filtered.push(b)
+    })
+
+    renderAdminLog(filtered)
+    updateAdminStats()
+}
+
+function clearAdminSearch() {
+    document.getElementById("adminSearch").value = ""
+    filterAdminLog()
+}
